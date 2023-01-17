@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { CustomInputFields } from "./customInputFields/CustomInputFields";
@@ -10,6 +11,7 @@ import { CustomInputFields } from "./customInputFields/CustomInputFields";
 // };
 
 export const UserForm = () => {
+  const [formData, setFormData] = useState({});
   const inputFields = [
     {
       label: "First Name",
@@ -41,14 +43,29 @@ export const UserForm = () => {
     },
   ];
 
+  const handleOnChange = (e) => {
+    const { value, name } = e.target;
+    setFormData({
+      ...formData,
+      [value]: name,
+    });
+  };
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+  };
+
   return (
-    <Form>
+    <Form onSubmit={handleOnSubmit}>
       <h2 className="p-5"> User Registration Form</h2>
       {inputFields.map((item, i) => (
-        <CustomInputFields key={i} {...item} />
+        <CustomInputFields key={i} {...item} onChange={handleOnChange} />
       ))}
 
-      <Button variant="success">Add User</Button>
+      <Button variant="success" type="submit">
+        Add User
+      </Button>
     </Form>
   );
 };
