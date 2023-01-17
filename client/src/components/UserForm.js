@@ -1,74 +1,68 @@
 import { useState } from "react";
-import { Button } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { toast } from "react-toastify";
 import { CustomInputFields } from "./customInputFields/CustomInputFields";
 import { postUser } from "./helper/axiosHelper";
 
-// const initialState = {
-//   fNAme: "",
-//   lName: "",
-//   email: "",
-//   password: "",
-// };
-
 export const UserForm = () => {
-  const [formData, setFormData] = useState({});
+  const [newUser, setNewUser] = useState({});
   const inputFields = [
     {
       label: "First Name",
       name: "fName",
-      type: "text",
-      placeholder: "john",
       required: true,
+      placeholder: "name",
+      type: "text",
     },
     {
       label: "Last Name",
       name: "lName",
-      type: "text",
-      placeholder: "cena",
       required: true,
+      placeholder: "lastname",
+      type: "text",
     },
     {
       label: "Email",
       name: "email",
-      type: "email",
-      placeholder: "example@email.com",
       required: true,
+      placeholder: "email",
+      type: "email",
     },
     {
       label: "Password",
       name: "password",
-      type: "password",
-      placeholder: "*****",
       required: true,
+      placeholder: "******",
+      type: "password",
     },
   ];
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setNewUser({
+      ...newUser,
       [name]: value,
     });
   };
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    const { status, message } = await postUser(formData);
+    console.log(newUser);
+    const { status, message } = await postUser(newUser);
     toast[status](message);
   };
 
   return (
     <Form onSubmit={handleOnSubmit}>
-      <h2 className="p-5"> User Registration Form</h2>
+      <h2>User Registration Form</h2>
+      <hr />
       {inputFields.map((item, i) => (
         <CustomInputFields key={i} {...item} onChange={handleOnChange} />
       ))}
 
-      <Button variant="success" type="submit">
-        Add User
+      <Button variant="primary" type="submit">
+        Submit
       </Button>
     </Form>
   );
