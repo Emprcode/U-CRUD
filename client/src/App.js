@@ -3,27 +3,34 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "react-bootstrap";
 import { UserForm } from "./components/UserForm";
 import { UserTable } from "./components/UserTable";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
+import { fetchUser } from "./components/helper/axiosHelper";
 function App() {
   const [userList, setUserList] = useState([]);
 
-  // const getUser = async () => {};
-  // console.log(getUser);
+  const getUser = async () => {
+    const { result } = await fetchUser();
+    setUserList(result);
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
   return (
     <div className="App">
       <section>
         {/* userForm  */}
         <Container>
-          <UserForm />
+          <UserForm getUser={getUser} />
           <hr />
         </Container>
       </section>
       <section>
         <Container className="mt-5">
-          <div> 10 User Found!</div>
+          <div> {userList.length} User Found!</div>
           {/* table */}
-          <UserTable />
+          <UserTable userList={userList} />
         </Container>
       </section>
       <ToastContainer />
