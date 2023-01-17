@@ -33,7 +33,7 @@ app.use("*", (req, res, next) => {
 // all uncaught error
 
 app.use((error, req, res, next) => {
-  const statusCode = error.code || 500;
+  const statusCode =  500;
   res.status(statusCode).json({
     status: "error",
     message: error.message,

@@ -13,7 +13,9 @@ const router = express.Router();
 //create
 router.post("/", async (req, res, next) => {
   try {
+    console.log(req.body)
     const result = await postUser(req.body);
+    console.log(result)
 
     result?._id
       ? res.json({

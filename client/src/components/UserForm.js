@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
+import { toast } from "react-toastify";
 import { CustomInputFields } from "./customInputFields/CustomInputFields";
+import { postUser } from "./helper/axiosHelper";
 
 // const initialState = {
 //   fNAme: "",
@@ -44,16 +46,18 @@ export const UserForm = () => {
   ];
 
   const handleOnChange = (e) => {
-    const { value, name } = e.target;
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [value]: name,
+      [name]: value,
     });
   };
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
+    const { status, message } = await postUser(formData);
+    toast[status](message);
   };
 
   return (
