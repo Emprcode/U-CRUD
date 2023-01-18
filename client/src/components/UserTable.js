@@ -2,12 +2,10 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import { toast } from "react-toastify";
-import { CustomModal } from "./customModal/CustomModal";
+
 import { deleteUser, updateUser } from "./helper/axiosHelper";
 
 export const UserTable = ({ userList, getUser }) => {
-  const [show, setShow] = useState(false);
-
   const handleOnDelete = async (_id) => {
     if (window.confirm(`Do you want to delete this user?`)) {
       const { status, message } = await deleteUser(_id);
@@ -19,12 +17,10 @@ export const UserTable = ({ userList, getUser }) => {
   const handleOnEdit = async (obj) => {
     // const result = await updateUser(obj);
     // console.log(result);
-    setShow(!show);
   };
 
   return (
     <div>
-      {show && <CustomModal show={show} setShow={setShow} />}
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -34,18 +30,18 @@ export const UserTable = ({ userList, getUser }) => {
           </tr>
         </thead>
         <tbody>
-          {userList.map(({ _id, fName, lName, email }) => (
-            <tr key={_id}>
-              <td>{fName}</td>
-              <td>{lName}</td>
-              <td>{email}</td>
+          {userList.map((item, i) => (
+            <tr key={item._id}>
+              <td>{item.fName}</td>
+              <td>{item.lName}</td>
+              <td>{item.email}</td>
               <td>
-                <Button
-                  variant="warning"
-                  onClick={() => handleOnEdit({ _id, fName, lName, email })}>
+                <Button variant="warning" onClick={() => handleOnEdit(item)}>
                   Edit
                 </Button>{" "}
-                <Button variant="danger" onClick={() => handleOnDelete(_id)}>
+                <Button
+                  variant="danger"
+                  onClick={() => handleOnDelete(item._id)}>
                   Delete
                 </Button>
               </td>
