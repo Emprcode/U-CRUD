@@ -18,7 +18,7 @@ export const postUser = async (obj) => {
 export const fetchUser = async () => {
   try {
     const { data } = await axios.get(apiEp);
-    console.log(data);
+    // console.log(data);
     return data;
   } catch (error) {
     return {
