@@ -1,7 +1,7 @@
 import { Button } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
 import { toast } from 'react-toastify';
-import { deleteUser } from './helper/axiosHelper';
+import { deleteUser, updateUser } from './helper/axiosHelper';
 
 export const UserTable = ({userList, getUser}) => {
 
@@ -12,6 +12,11 @@ export const UserTable = ({userList, getUser}) => {
       status === "success" && getUser()
     }
       
+    }
+
+    const handleOnEdit = async(obj)=> {
+      const result = await updateUser(obj)
+      console.log(result)
     }
   
     return (
@@ -30,7 +35,7 @@ export const UserTable = ({userList, getUser}) => {
             <td>{lName}</td>
             <td>{email}</td>
             <td>
-              <Button variant='warning'>Edit</Button>{" "}
+              <Button variant='warning' onClick={()=> handleOnEdit({_id, fName, lName, email})}>Edit</Button>{" "}
              <Button variant='danger' onClick={() => handleOnDelete(_id)}>Delete</Button>
             </td>
           </tr>)

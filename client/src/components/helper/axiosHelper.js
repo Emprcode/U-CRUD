@@ -10,7 +10,7 @@ export const postUser = async (obj) => {
   } catch (error) {
     return {
       status: "error",
-      message: error.message,
+      message: "unable to post user",
     };
   }
 };
@@ -24,6 +24,20 @@ export const fetchUser = async () => {
     return {
       status: "error",
       message: "error.message",
+    };
+  }
+};
+
+// update
+
+export const updateUser = async (obj) => {
+  try {
+    const { data } = await axios.put(apiEp, obj);
+    return data;
+  } catch (error) {
+    return {
+      status: "error",
+      message: error.message,
     };
   }
 };
