@@ -30,7 +30,7 @@ function App() {
         <Container className="mt-5">
           <div> {userList.length} User Found!</div>
           {/* table */}
-          <UserTable userList={userList} />
+          <UserTable userList={userList} getUser={getUser} />
         </Container>
       </section>
       <ToastContainer />
