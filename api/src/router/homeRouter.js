@@ -47,10 +47,12 @@ router.get("/", async (req, res, next) => {
 router.put("/", async (req, res, next) => {
   try {
     const { _id, ...rest } = req.body;
+    console.log(req.body);
 
     const filter = _id;
-    const result = await updateUser(filter, rest);
-    console.log(result);
+    const userObj = rest;
+    const result = await updateUser(filter, userObj);
+    console.log(result)
 
     result?._id
       ? res.json({

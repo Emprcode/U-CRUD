@@ -2,10 +2,15 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import { toast } from "react-toastify";
+import { CustomModal } from "./customModal/CustomModal";
+import { EditUserForm } from "./EdituserForm";
 
-import { deleteUser, updateUser } from "./helper/axiosHelper";
+import { deleteUser } from "./helper/axiosHelper";
 
 export const UserTable = ({ userList, getUser }) => {
+  const [show, setShow] = useState(false);
+  const [selectUser, setSelectUser] = useState({});
+
   const handleOnDelete = async (_id) => {
     if (window.confirm(`Do you want to delete this user?`)) {
       const { status, message } = await deleteUser(_id);
@@ -17,10 +22,16 @@ export const UserTable = ({ userList, getUser }) => {
   const handleOnEdit = async (obj) => {
     // const result = await updateUser(obj);
     // console.log(result);
+    setShow(!show);
   };
 
   return (
     <div>
+      {show && (
+        <CustomModal setShow={setShow}>
+          <EditUserForm selectUser={selectUser} />
+        </CustomModal>
+      )}
       <Table striped bordered hover>
         <thead>
           <tr>
