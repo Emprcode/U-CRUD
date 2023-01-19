@@ -32,7 +32,9 @@ router.post("/", async (req, res, next) => {
 //get
 router.get("/", async (req, res, next) => {
   try {
+    
     const result = await getUser();
+    console.log(result)
     res.json({
       status: "success",
       message: "All user Successfully received",

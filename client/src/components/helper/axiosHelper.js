@@ -21,10 +21,9 @@ export const postUser = async (userObj) => {
 
 export const getUser = async () => {
   try {
-    const response = await axios.get(apiEp);
-    console.log(response);
-    // console.log(data);
-    // return data;
+    const { data } = await axios.get(apiEp);
+    console.log(data);
+    return data;
   } catch (error) {
     return {
       status: "error",
