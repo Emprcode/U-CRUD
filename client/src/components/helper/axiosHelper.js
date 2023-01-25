@@ -42,3 +42,17 @@ export const deleteUser = async(_id) => {
         }
     }
 }
+
+// edit
+
+export const editUser = async( userObj) => {
+    try {
+        const {data} = await axios.put(apiEp, userObj)
+        return data
+    } catch (error) {
+        return{
+            status:"error",
+            message: error.message
+        }
+    }
+}

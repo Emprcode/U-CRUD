@@ -49,12 +49,12 @@ router.get("/", async (req, res, next) => {
 router.put("/", async (req, res, next) => {
   try {
     const { _id, ...rest } = req.body;
-    console.log(req.body);
+    // console.log(req.body)
 
     const filter = _id;
     const userObj = rest;
     const result = await updateUser(filter, userObj);
-    console.log(result)
+    // console.log(result)
 
     result?._id
       ? res.json({
