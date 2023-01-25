@@ -5,7 +5,7 @@ import { CustomUserForm } from "./customFields/CustomUserForm";
 import { postUser } from "./helper/axiosHelper";
 import { toast } from "react-toastify";
 
-export const UserForm = () => {
+export const UserForm = ({ getUser }) => {
   const [formData, setFormData] = useState({});
   const inputFields = [
     {
@@ -49,6 +49,7 @@ export const UserForm = () => {
     e.preventDefault();
     const { status, message } = await postUser(formData);
     toast[status](message);
+    status === "success" && getUser();
   };
   return (
     <Form className="p-5 " onSubmit={handleOnSubmit}>
